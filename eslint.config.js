@@ -6,6 +6,7 @@ import tseslint from 'typescript-eslint';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import sortImport from 'eslint-plugin-import';
 import sortKeys from 'eslint-plugin-sort-keys';
+import importNewlines from 'eslint-plugin-import-newlines';
 
 export default tseslint.config(
   { ignores: ['dist', 'nodu_modules'] },
@@ -21,11 +22,13 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
       import: sortImport,
       'sort-keys': sortKeys,
+      'import-newlines': importNewlines,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       semi: ['error', 'always'],
+      'import-newlines/enforce': ['error', { items: 40, 'max-len': 120 }],
       'no-console': 'error',
       'no-dupe-keys': 2,
       'no-empty-pattern': 2,
@@ -59,7 +62,22 @@ export default tseslint.config(
             },
             {
               group: 'internal',
+              pattern: 'assets/**',
+              position: 'after',
+            },
+            {
+              group: 'internal',
+              pattern: 'components/**',
+              position: 'after',
+            },
+            {
+              group: 'internal',
               pattern: 'pages/**',
+              position: 'after',
+            },
+            {
+              group: 'internal',
+              pattern: 'styles/**',
               position: 'after',
             },
           ],
