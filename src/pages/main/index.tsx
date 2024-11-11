@@ -1,11 +1,15 @@
 import Header from 'components/header';
 
+import styles from './styles.module.scss';
+
 const Main = () => (
   <div>
     <Header />
-    <div>
-      <div>Дерево</div>
-      <div>Контент</div>
+    <div className={styles.content}>
+      <div className={styles.tree}>
+        <div>Дерево</div>
+      </div>
+      <div />
     </div>
   </div>
 );
