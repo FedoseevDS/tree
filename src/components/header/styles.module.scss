@@ -15,4 +15,8 @@
 .panelControl {
   display: flex;
   gap: 30px;
-}
+
+  & svg:hover path {
+    stroke: $hover1;
+  }
+} 

@@ -1,7 +1,7 @@
-import deleteImg from 'assets/delete.svg';
-import editImg from 'assets/edit.svg';
-import fileImg from 'assets/file.svg';
-import iconFolder from 'assets/folder.svg';
+import IconDelete from 'assets/delete.svg?react';
+import IconEdit from 'assets/edit.svg?react';
+import IconFile from 'assets/file.svg?react';
+import IconFolder from 'assets/folder.svg?react';
 
 import styles from './styles.module.scss';
 
@@ -11,16 +11,16 @@ const Header = () => {
       <div className={styles.breadcrumbs}>Корень /</div>
       <div className={styles.panelControl}>
         <button>
-          <img src={iconFolder} alt="добавить папку" />
+          <IconFolder />
         </button>
         <button>
-          <img src={fileImg} alt="добавить файл" />
+          <IconFile />
         </button>
         <button>
-          <img src={editImg} alt="редактировать" />
+          <IconEdit />
         </button>
         <button>
-          <img src={deleteImg} alt="удалить" />
+          <IconDelete />
         </button>
       </div>
     </div>

@@ -1,6 +1,6 @@
 Тестовое задание: создать дерево с бесконечными вложенностями
 
-Стек: TS, react, react-router-dom, vita, sass, normalize.css, eslint-config-prettier, eslint-plugin-import, eslint-plugin-prettier, eslint-plugin-sort-keys, prettier, @types/node
+Стек: TS, react, react-router-dom, vita, vite-plugin-svgr, sass, normalize.css, eslint-config-prettier, eslint-plugin-import, eslint-plugin-prettier, eslint-plugin-sort-keys, prettier, @types/node
 
 Описание веток:
 
