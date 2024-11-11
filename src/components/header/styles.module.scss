@@ -1,0 +1,18 @@
+@use "styles/colors.scss" as *;
+
+.wrapper {
+  border-bottom: 1px solid $gray2;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.breadcrumbs {
+  color: $gray1;
+}
+
+.panelControl {
+  display: flex;
+  gap: 30px;
+}

@@ -59,7 +59,22 @@ export default tseslint.config(
             },
             {
               group: 'internal',
+              pattern: 'assets/**',
+              position: 'after',
+            },
+            {
+              group: 'internal',
+              pattern: 'components/**',
+              position: 'after',
+            },
+            {
+              group: 'internal',
               pattern: 'pages/**',
+              position: 'after',
+            },
+            {
+              group: 'internal',
+              pattern: 'styles/**',
               position: 'after',
             },
           ],

@@ -1,3 +1,5 @@
+import { resolve } from 'path'
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -16,5 +18,11 @@ export default defineConfig({
   },
   resolve: {
     extensions: ['.scss', '.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      assets: resolve(__dirname, './src/assets'),
+      components: resolve(__dirname, './src/components'),
+      pages: resolve(__dirname, './src/pages'),
+      styles: resolve(__dirname, './src/styles'),
+    }
   },
 });
