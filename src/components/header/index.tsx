@@ -1,7 +1,7 @@
+import IconCreateFile from 'assets/createFile.svg?react';
+import IconCreateFolder from 'assets/createFolder.svg?react';
 import IconDelete from 'assets/delete.svg?react';
 import IconEdit from 'assets/edit.svg?react';
-import IconFile from 'assets/file.svg?react';
-import IconFolder from 'assets/folder.svg?react';
 
 import styles from './styles.module.scss';
 
@@ -11,10 +11,10 @@ const Header = () => {
       <div className={styles.breadcrumbs}>Корень /</div>
       <div className={styles.panelControl}>
         <button>
-          <IconFolder />
+          <IconCreateFolder />
         </button>
         <button>
-          <IconFile />
+          <IconCreateFile />
         </button>
         <button>
           <IconEdit />
