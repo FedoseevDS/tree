@@ -1,6 +1,3 @@
-// import IconChevron from 'assets/chevron.svg?react';
-// import IconFolder from 'assets/folder.svg?react';
-
 import Header from 'components/header';
 import Tree from 'components/tree';
 

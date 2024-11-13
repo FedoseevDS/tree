@@ -72,6 +72,16 @@ export default tseslint.config(
             },
             {
               group: 'internal',
+              pattern: 'contexts/**',
+              position: 'after',
+            },
+            {
+              group: 'internal',
+              pattern: 'hooks/**',
+              position: 'after',
+            },
+            {
+              group: 'internal',
               pattern: 'pages/**',
               position: 'after',
             },
