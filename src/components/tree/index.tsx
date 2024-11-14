@@ -1,7 +1,6 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-
 import cn from 'classnames';
 import { uniqueId } from 'lodash';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import IconChevron from 'assets/chevron.svg?react';
 import IconFolder from 'assets/folder.svg?react';
@@ -11,27 +10,27 @@ import CreateFolderContext from 'contexts/createFolderContext';
 import styles from './styles.module.scss';
 
 type Node = {
+  children?: Array<Node>;
   id: string;
   name: string;
   type: 'file' | 'folder';
-  children?: Array<Node>;
 };
 
 const renderTree = (
   data: Array<Node>,
   expandedFolders: Map<string, boolean>,
-  createFolder: string | null,
+  createFolder: null | string,
   toggleFolder: (id: string) => void,
 ) => {
-  return data?.map(({ type, id, name, children }: Node) => {
+  return data?.map(({ children, id, name, type }: Node) => {
     const isExpanded = expandedFolders?.get(id) || false;
 
     switch (type) {
       case 'folder':
         return (
           <div
-            key={id}
             className={cn(styles.folder, { [styles.folderActive]: isExpanded })}
+            key={id}
             onClick={() => toggleFolder(id)}
           >
             <button>
@@ -41,8 +40,8 @@ const renderTree = (
             </button>
             {isExpanded && children && (
               <div
-                key={id}
                 className={cn(styles.childrenFolder, { [styles.expanded]: isExpanded })}
+                key={id}
               >
                 {renderTree(children, expandedFolders, createFolder, toggleFolder)}
               </div>
@@ -135,11 +134,11 @@ const Tree = () => {
         <div className={styles.input}>
           <IconFolder />
           <input
-            ref={inputRef}
-            onChange={({ target }) => setNameFolder(target.value)}
-            value={nameFolder}
-            onKeyDown={handleKeyDown}
             autoFocus
+            onChange={({ target }) => setNameFolder(target.value)}
+            onKeyDown={handleKeyDown}
+            ref={inputRef}
+            value={nameFolder}
           />
           {errorText && <div className={styles.errorText}>{errorText}</div>}
         </div>
