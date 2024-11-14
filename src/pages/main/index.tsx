@@ -8,11 +8,9 @@ const Main = () => (
     <Header />
     <div className={styles.body}>
       <Tree />
-      <div className={styles.content}>
-        Черный квадрат малевича
-      </div>
+      <div className={styles.content}>Черный квадрат малевича</div>
     </div>
   </div>
 );
 
-export default Main
+export default Main;
