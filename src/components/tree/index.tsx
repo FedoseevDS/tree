@@ -64,8 +64,10 @@ const renderTree = (
 const Tree = () => {
   const [nameFolder, setNameFolder] = useState<string>('');
   const [expandedFolders, setExpandedFolders] = useState<Map<string, boolean>>(new Map());
-  const [data, setData] = useState(JSON.parse(localStorage.getItem('data')) || []);
+  const [data, setData] = useState(localStorage.getItem('data') || []);
   const [errorText, setErrorText] = useState<string>('');
+
+  console.log('data', data);
 
   const [createFolder, setCreateFolder] = useContext(CreateFolderContext);
 
