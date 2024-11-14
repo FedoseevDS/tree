@@ -6,15 +6,13 @@ import styles from './styles.module.scss';
 const Main = () => (
   <div>
     <Header />
-    <div className={styles.content}>
+    <div className={styles.body}>
       <Tree />
-      <div
-        style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', width: '100%' }}
-      >
+      <div className={styles.content}>
         Черный квадрат малевича
       </div>
     </div>
   </div>
 );
 
-export default Main;
+export default Main
