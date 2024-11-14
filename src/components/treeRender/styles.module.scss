@@ -1,0 +1,41 @@
+@use "styles/colors.scss" as *;
+
+.folder {
+  & button {
+    display: flex;
+    padding: 4px;
+    gap: 4px;
+    align-items: center;
+    cursor: default;
+    
+    & span {
+      padding-left: 4px;
+    }
+  }
+}
+
+.chevron {
+  transform: rotate(0);
+  transition-duration: .5s;
+}
+
+.chevronActive {
+  transform: rotate(90deg);
+  transition-duration: .5s;
+}
+
+.childrenFolder {
+  margin-left: 15px;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.9s ease-out;
+  border-left: 1px solid $border1;
+
+  .file {
+    padding-left: 40px;
+  }
+}
+
+.childrenFolder.expanded {
+  max-height: 100%;
+}
