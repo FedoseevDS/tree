@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import cn from 'classnames';
+import { uniqueId } from 'lodash';
 
 import IconChevron from 'assets/chevron.svg?react';
 import IconFolder from 'assets/folder.svg?react';
@@ -9,13 +10,20 @@ import CreateFolderContext from 'contexts/createFolderContext';
 
 import styles from './styles.module.scss';
 
+type Node = {
+  id: string;
+  name: string;
+  type: 'file' | 'folder';
+  children?: Array<Node>;
+};
+
 const renderTree = (
   data: Array<Node>,
   expandedFolders: Map<string, boolean>,
   createFolder: string | null,
   toggleFolder: (id: string) => void,
 ) => {
-  return data?.map(({ type, id, name, children }) => {
+  return data?.map(({ type, id, name, children }: Node) => {
     const isExpanded = expandedFolders?.get(id) || false;
 
     switch (type) {
@@ -32,7 +40,10 @@ const renderTree = (
               <span>{name}</span>
             </button>
             {isExpanded && children && (
-              <div className={cn(styles.childrenFolder, { [styles.expanded]: isExpanded })}>
+              <div
+                key={id}
+                className={cn(styles.childrenFolder, { [styles.expanded]: isExpanded })}
+              >
                 {renderTree(children, expandedFolders, createFolder, toggleFolder)}
               </div>
             )}
@@ -68,7 +79,7 @@ const Tree = () => {
       if (inputRef.current && !inputRef.current.contains(event.target) && nameFolder) {
         const newObj = {
           children: [],
-          id: new Date().toString(),
+          id: uniqueId(),
           name: nameFolder,
           type: 'folder',
         };
@@ -89,7 +100,7 @@ const Tree = () => {
       setErrorText('');
       const newObj = {
         children: [],
-        id: new Date().toString(),
+        id: uniqueId(),
         name: nameFolder,
         type: 'folder',
       };
@@ -130,6 +141,7 @@ const Tree = () => {
             onChange={({ target }) => setNameFolder(target.value)}
             value={nameFolder}
             onKeyDown={handleKeyDown}
+            autoFocus
           />
           {errorText && <div className={styles.errorText}>{errorText}</div>}
         </div>
