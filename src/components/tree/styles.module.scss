@@ -13,6 +13,12 @@
     gap: 4px;
     align-items: center;
     cursor: default;
+    pointer-events: none;
+    outline: none;
+    
+    & > svg:first-child {
+      transition-duration: .5s;
+    }
     
     & span {
       padding-left: 4px;
@@ -20,14 +26,23 @@
   }
 }
 
-.chevron {
-  transform: rotate(0);
-  transition-duration: .5s;
+.folder {
+  cursor: pointer;
+
+  &:hover {
+    background: $white2;
+  }
 }
 
-.chevronActive {
-  transform: rotate(90deg);
-  transition-duration: .5s;
+.folderActive {
+  background: #32ADE64D;
+  outline: 1px solid #32ADE6;
+  height: 32px;
+  box-sizing: border-box;
+
+  &:hover {
+    background: #32ADE64D;
+  }
 }
 
 .childrenFolder {
@@ -44,4 +59,39 @@
 
 .childrenFolder.expanded {
   max-height: 100%;
+}
+
+.input {
+  padding: 4px 0 4px 32px;
+  display: flex;
+  gap: 8px;
+  box-sizing: border-box;
+  position: relative;
+
+  & input {
+    background: $background1;
+    border: 1px solid $hover1;
+    border-radius: 3px;
+    color: $white1;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      border: 1px solid $hover1;
+    }
+  }
+}
+
+.errorText {
+  box-sizing: border-box;
+  position: absolute;
+  color: red;
+  text-align: center;
+  top: 90%;
+  margin-left: 30px;
+  background: $background1;
+  border: 1px solid $hover1;
+  border-top: 0;
+  width: 405px;
+  padding: 5px;
 }

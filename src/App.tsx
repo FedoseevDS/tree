@@ -1,6 +1,12 @@
+import { useState } from 'react';
+
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import CreateFolderContext, { initialState } from 'contexts/createFolderContext';
+
 import Main from 'pages/main';
+
+import 'styles/global.scss';
 
 const router = createBrowserRouter([
   {
@@ -9,8 +15,14 @@ const router = createBrowserRouter([
   },
 ]);
 
-import 'styles/global.scss';
+const App = () => {
+  const createFolder = useState(initialState);
 
-const App = () => <RouterProvider router={router} />;
+  return (
+    <CreateFolderContext.Provider value={createFolder}>
+      <RouterProvider router={router} />
+    </CreateFolderContext.Provider>
+  );
+};
 
 export default App;
