@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 import IconCreateFile from 'assets/createFile.svg?react';
 import IconCreateFolder from 'assets/createFolder.svg?react';
@@ -10,9 +10,6 @@ import CreateFolderContext from 'contexts/createFolderContext';
 import styles from './styles.module.scss';
 
 const Header = () => {
-  // const [createFolder, setCreateFolder] = useState(null);
-
-  // console.log('createFolder', createFolder);
   const [, setCreateFolder] = useContext(CreateFolderContext);
 
   return (
