@@ -1,12 +1,11 @@
 import { useState } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-
-import CreateFolderContext, { initialState } from 'contexts/createFolderContext';
+import 'styles/global.scss';
 
 import Main from 'pages/main';
 
-import 'styles/global.scss';
+import CreateFolderContext, { initialState } from 'contexts/createFolderContext';
 
 const router = createBrowserRouter([
   {
