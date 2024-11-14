@@ -72,8 +72,6 @@ const Tree = () => {
 
   const inputRef = useRef(null);
 
-  console.log('inputRef', inputRef);
-
   const handleMouseDown = useCallback(
     (event) => {
       if (inputRef.current && !inputRef.current.contains(event.target) && nameFolder) {
