@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { treeRender } from 'components/treeRender';
+
+import CreateFolderContext from 'contexts/createFolderContext';
 
 import { data } from './const';
 
@@ -12,23 +14,44 @@ const TreeV2 = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  searchParams.forEach((i) => console.log(i));
+  const [stateButton] = useContext(CreateFolderContext);
 
-  const toggleFolder = (id: string) => {
-    setExpandedFolders((prevExpandedFolders) => {
-      const newExpandedFolders = new Map(prevExpandedFolders);
-      newExpandedFolders.set(id, !newExpandedFolders.get(id));
-      return newExpandedFolders;
-    });
+  console.log('stateButton', stateButton);
 
+  const onChange = useCallback(({ target }: { target: { value: string } }) => {
+    console.log('event', target.value);
+  }, []);
+
+  const toggleFolder = useCallback(
+    (id: string) => {
+      setExpandedFolders((prevExpandedFolders) => {
+        const newExpandedFolders = new Map(prevExpandedFolders);
+        newExpandedFolders.set(id, !newExpandedFolders.get(id));
+        return newExpandedFolders;
+      });
+
+      setSearchParams((prev) => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set('id', id);
+        return newParams;
+      });
+    },
+    [setSearchParams],
+  );
+
+  useEffect(() => {
     setSearchParams((prev) => {
       const newParams = new URLSearchParams(prev);
-      newParams.set('id', id);
+      newParams.delete('id');
       return newParams;
     });
-  };
+  }, []);
 
-  return <div className={styles.wrapper}>{treeRender(data, expandedFolders, toggleFolder)}</div>;
+  return (
+    <div className={styles.wrapper}>
+      {treeRender(data, expandedFolders, searchParams, stateButton, onChange, toggleFolder)}
+    </div>
+  );
 };
 
 export default TreeV2;
