@@ -1,0 +1,22 @@
+@use "styles/colors.scss" as *;
+
+.wrapper {
+  padding: 4px 0 4px 32px;
+  display: flex;
+  gap: 8px;
+  box-sizing: border-box;
+  position: relative;
+
+  & input {
+    background: $background1;
+    border: 1px solid $hover1;
+    border-radius: 3px;
+    color: $white1;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      border: 1px solid $hover1;
+    }
+  }
+}

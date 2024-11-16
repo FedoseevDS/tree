@@ -1,18 +1,23 @@
 import cn from 'classnames';
+import { RefObject } from 'react';
 
 import IconChevron from 'assets/chevron.svg?react';
 import IconFolder from 'assets/folder.svg?react';
 
-import { Node } from '../treeV2/const';
+import { Node } from '../const';
+import Input from '../input';
 
 import styles from './styles.module.scss';
 
-export const treeRender = (
+export const Render = (
   data: Array<Node>,
   expandedFolders: Map<string, boolean>,
+  stateButton: { delete: boolean; edit: boolean; file: boolean; folder: boolean } | null,
+  inputRef: RefObject<HTMLInputElement>,
+  currentId: string,
   toggleFolder: (id: string) => void,
 ) => {
-  return data.map(({ children, id, name, type }) => {
+  const filterData = data?.map(({ children, id, name, type }) => {
     const isExpanded = expandedFolders?.get(id) || false;
 
     switch (type) {
@@ -27,9 +32,16 @@ export const treeRender = (
               <IconFolder />
               <span>{name}</span>
             </button>
+            <Input
+              currentId={currentId}
+              data={data}
+              itemId={id}
+              ref={inputRef}
+              stateButton={stateButton}
+            />
             {isExpanded && children && (
               <div className={cn(styles.childrenFolder, { [styles.expanded]: isExpanded })}>
-                {treeRender(children, expandedFolders, toggleFolder)}
+                {Render(children, expandedFolders, stateButton, inputRef, currentId, toggleFolder)}
               </div>
             )}
           </div>
@@ -46,4 +58,17 @@ export const treeRender = (
         );
     }
   });
+
+  return (
+    <div className={styles.container}>
+      <Input
+        currentId={currentId}
+        data={data}
+        itemId={''}
+        ref={inputRef}
+        stateButton={stateButton}
+      />
+      {filterData}
+    </div>
+  );
 };

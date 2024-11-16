@@ -7,6 +7,12 @@
     gap: 4px;
     align-items: center;
     cursor: default;
+    width: 100%;
+
+    &:hover {
+      background: $white2;
+      cursor: pointer;
+    }
     
     & span {
       padding-left: 4px;
