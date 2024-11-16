@@ -18,6 +18,7 @@ export default defineConfig({
       assets: resolve(__dirname, './src/assets'),
       components: resolve(__dirname, './src/components'),
       contexts: resolve(__dirname, './src/contexts'),
+      helpers: resolve(__dirname, './src/helpers'),
       hooks: resolve(__dirname, './src/hooks'),
       pages: resolve(__dirname, './src/pages'),
       styles: resolve(__dirname, './src/styles'),
