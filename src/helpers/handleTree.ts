@@ -1,27 +1,35 @@
-export const handleTree = (data, name, id = null, uniqueId) => {
-  if (id === null) {
+import { Node } from 'components/tree/const';
+
+export const handleTree = (
+  data: Array<Node>,
+  name: string,
+  paramsId: string,
+  type: string,
+  uniqueId: () => string,
+): Array<Node> => {
+  if (paramsId === '') {
     return [
       ...data,
       {
         children: [],
         id: uniqueId(),
         name,
-        type: 'folder',
+        type,
       },
     ];
   }
 
   return data.map((item) => {
-    if (item.id === id) {
+    if (item.id === paramsId) {
       return {
         ...item,
         children: [
-          ...item.children,
+          ...(item.children || []),
           {
             children: [],
             id: uniqueId(),
             name,
-            type: 'folder',
+            type,
           },
         ],
       };
@@ -29,7 +37,7 @@ export const handleTree = (data, name, id = null, uniqueId) => {
 
     return {
       ...item,
-      children: handleTree(item.children, name, id, uniqueId),
+      children: handleTree(item.children || [], name, paramsId, type, uniqueId),
     };
   });
 };
