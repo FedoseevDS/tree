@@ -1,4 +1,3 @@
-import { Render } from 'components/tree/render';
 import { uniqueId } from 'lodash';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -8,6 +7,9 @@ import CreateFolderContext from 'contexts/createFolderContext';
 import { handleTree } from 'helpers/handleTree';
 
 import { useLocalStorage } from 'hooks/useLocalStorage';
+
+import { Node } from './const';
+import { Render } from './render';
 
 import styles from './styles.module.scss';
 
@@ -21,18 +23,34 @@ const Tree = () => {
 
   const [data, setData] = useLocalStorage({ defaultValue: [], key: 'data' });
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleMouseDown = useCallback(
-    (event) => {
-      if (inputRef?.current?.value && !inputRef.current.contains(event.target)) {
-        setData((e) => {
-          return handleTree([...e], inputRef?.current?.value, searchParams.get('id'), uniqueId);
+    (event: MouseEvent) => {
+      if (inputRef?.current?.value && !inputRef.current.contains(event.target as HTMLDataElement)) {
+        const typeName = Object.entries(stateButton).reduce((prevV, curV) => {
+          if (curV.includes(true)) {
+            return curV[0];
+          }
+          return prevV;
+        }, '');
+
+        setData((e: Array<Node>) => {
+          const result = handleTree(
+            [...e],
+            inputRef?.current?.value || '',
+            searchParams.get('id') || '',
+            typeName,
+            uniqueId,
+          );
+          return result;
         });
-        setStateButton((e) => ({ ...e, folder: false }));
+        if (setStateButton) {
+          setStateButton((e) => ({ ...e, file: false, folder: false }));
+        }
       }
     },
-    [searchParams, setData, setStateButton],
+    [searchParams, setData, stateButton, setStateButton],
   );
 
   const toggleFolder = useCallback(
@@ -68,7 +86,7 @@ const Tree = () => {
   }, [handleMouseDown]);
 
   useEffect(() => {
-    setCurrentId(searchParams.get('id'));
+    setCurrentId(searchParams.get('id') || '');
   }, [searchParams]);
 
   return (

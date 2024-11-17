@@ -6,23 +6,32 @@ import IconDelete from 'assets/delete.svg?react';
 import IconEdit from 'assets/edit.svg?react';
 
 import CreateFolderContext from 'contexts/createFolderContext';
-// import { useLocalStorage } from 'hooks/useLocalStorage';
-
-import { HeaderTypes } from 'types';
 
 import styles from './styles.module.scss';
 
 const Header = () => {
-  const [clickButton, setClickButton] = useContext(CreateFolderContext);
+  const [, setClickButton] = useContext(CreateFolderContext);
+
+  const handleCreateFolder = () => {
+    if (setClickButton) {
+      setClickButton((prev) => ({ ...prev, folder: true }));
+    }
+  };
+
+  const handleCreateFile = () => {
+    if (setClickButton) {
+      setClickButton((prev) => ({ ...prev, file: true }));
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.breadcrumbs}>Корень /</div>
       <div className={styles.panelControl}>
-        <button onClick={(e) => setClickButton((prev: HeaderTypes) => ({ ...prev, folder: !!e }))}>
+        <button onClick={handleCreateFolder}>
           <IconCreateFolder />
         </button>
-        <button>
+        <button onClick={handleCreateFile}>
           <IconCreateFile />
         </button>
         <button>

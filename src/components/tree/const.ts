@@ -2,7 +2,7 @@ export type Node = {
   children?: Array<Node>;
   id: string;
   name: string;
-  type: 'file' | 'folder';
+  type: string;
 };
 
 export const data: Array<Node> = [

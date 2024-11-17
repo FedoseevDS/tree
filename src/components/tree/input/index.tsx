@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 
+import IconChevron from 'assets/chevron.svg?react';
 import IconFolder from 'assets/folder.svg?react';
 
 import { Node } from '../const';
@@ -14,15 +15,18 @@ type TreeInputType = {
 };
 
 const Input = forwardRef<HTMLInputElement, TreeInputType>(
-  ({ currentId, data, itemId, stateButton }: TreeInputType, ref) => {
+  ({ currentId, data, itemId, stateButton }, ref) => {
+    const currentStateButton = stateButton?.folder || stateButton?.file;
+
     const shouldRenderInput =
-      (data.length !== 0 && !currentId && stateButton?.folder) ||
-      (!data.length && !currentId && stateButton?.folder) ||
-      (currentId === itemId && stateButton?.folder);
+      (data.length !== 0 && !currentId && !itemId && currentStateButton) ||
+      (!data.length && !currentId && !itemId && currentStateButton) ||
+      (currentId === itemId && currentStateButton);
 
     return shouldRenderInput ? (
       <div className={styles.wrapper}>
-        <IconFolder />
+        {stateButton?.folder && <IconChevron />}
+        {stateButton?.folder && <IconFolder />}
         <input
           autoFocus
           ref={ref}

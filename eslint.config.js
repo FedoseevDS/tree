@@ -31,6 +31,7 @@ export default tseslint.config(
     rules: {
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
+      'no-console': 'error',
       'no-shadow': ['error'],
       'perfectionist/sort-imports': [
         'error',
