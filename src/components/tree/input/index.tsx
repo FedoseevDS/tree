@@ -1,9 +1,8 @@
 import { forwardRef } from 'react';
+import { ButtonType, Node } from 'types';
 
 import IconChevron from 'assets/chevron.svg?react';
 import IconFolder from 'assets/folder.svg?react';
-
-import { Node } from '../const';
 
 import styles from './styles.module.scss';
 
@@ -11,7 +10,7 @@ type TreeInputType = {
   currentId: string;
   data: Array<Node>;
   itemId: string;
-  stateButton: { delete: boolean; edit: boolean; file: boolean; folder: boolean } | null;
+  stateButton: ButtonType | null;
 };
 
 const Input = forwardRef<HTMLInputElement, TreeInputType>(

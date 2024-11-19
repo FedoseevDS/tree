@@ -6,10 +6,14 @@ export const handleButton =
     switch (type) {
       case 'delete':
         return onClick && onClick((prev) => ({ ...prev, delete: true }));
+      case 'edit':
+        return onClick && onClick((prev) => ({ ...prev, edit: true }));
       case 'file':
         return onClick && onClick((prev) => ({ ...prev, file: true }));
       case 'folder':
         return onClick && onClick((prev) => ({ ...prev, folder: true }));
+      default:
+        return;
     }
   };
 

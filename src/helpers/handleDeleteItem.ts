@@ -1,10 +1,10 @@
-import { Node } from 'components/tree/const';
-import { ButtonType } from 'types';
+import { Dispatch, SetStateAction } from 'react';
+import { ButtonType, Node } from 'types';
 
 type HandleDeleteItemTypes = {
   data: Node[];
   itemId: string;
-  setStateButton: (e: ButtonType) => void;
+  setStateButton?: Dispatch<SetStateAction<ButtonType>> | null;
 };
 
 export const handleDeleteItem: (
@@ -17,7 +17,7 @@ export const handleDeleteItem: (
   return safeData.reduce((prevV: Node[], curV: Node) => {
     const isItem = curV.id === itemId;
     if (isItem) {
-      setStateButton({ delete: false, edit: false, file: false, folder: false });
+      setStateButton?.({ delete: false, edit: false, file: false, folder: false });
       return [...prevV];
     }
     if (curV.type === 'folder') {

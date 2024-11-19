@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import { RefObject } from 'react';
+import { ButtonType, Node } from 'types';
 
 import IconChevron from 'assets/chevron.svg?react';
 import IconFolder from 'assets/folder.svg?react';
 
-import { Node } from '../const';
 import Input from '../input';
 
 import styles from './styles.module.scss';
@@ -12,7 +12,7 @@ import styles from './styles.module.scss';
 export const Render = (
   data: Array<Node>,
   expandedFolders: Map<string, boolean>,
-  stateButton: { delete: boolean; edit: boolean; file: boolean; folder: boolean } | null,
+  stateButton: ButtonType | null,
   inputRef: RefObject<HTMLInputElement>,
   currentId: string,
   toggleFolder: (id: string) => void,
@@ -27,11 +27,18 @@ export const Render = (
             className={styles.folder}
             key={id}
           >
-            <button onClick={() => toggleFolder(id)}>
-              <IconChevron className={cn(isExpanded ? styles.chevronActive : styles.chevron)} />
-              <IconFolder />
-              <span>{name}</span>
-            </button>
+            {stateButton?.edit && id === currentId ? (
+              <input
+                autoFocus
+                ref={inputRef}
+              />
+            ) : (
+              <button onClick={() => toggleFolder(id)}>
+                <IconChevron className={cn(isExpanded ? styles.chevronActive : styles.chevron)} />
+                <IconFolder />
+                <span>{name}</span>
+              </button>
+            )}
             <Input
               currentId={currentId}
               data={data}
@@ -48,13 +55,21 @@ export const Render = (
         );
       default:
         return (
-          <button
-            className={styles.file}
-            key={id}
-            onClick={() => toggleFolder(id)}
-          >
-            <span>{name}</span>
-          </button>
+          <div key={id}>
+            {stateButton?.edit && id === currentId ? (
+              <input
+                autoFocus
+                ref={inputRef}
+              />
+            ) : (
+              <button
+                className={styles.file}
+                onClick={() => toggleFolder(id)}
+              >
+                <span>{name}</span>
+              </button>
+            )}
+          </div>
         );
     }
   });
