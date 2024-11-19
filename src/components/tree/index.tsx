@@ -2,8 +2,10 @@ import { uniqueId } from 'lodash';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import CreateFolderContext from 'contexts/createFolderContext';
+import CreateFolderContext from 'contexts/createButtonContext';
 
+import { handleTypeName } from 'helpers/handleButton';
+import { handleDeleteItem } from 'helpers/handleDeleteItem';
 import { handleTree } from 'helpers/handleTree';
 
 import { useLocalStorage } from 'hooks/useLocalStorage';
@@ -28,19 +30,12 @@ const Tree = () => {
   const handleMouseDown = useCallback(
     (event: MouseEvent) => {
       if (inputRef?.current?.value && !inputRef.current.contains(event.target as HTMLDataElement)) {
-        const typeName = Object.entries(stateButton).reduce((prevV, curV) => {
-          if (curV.includes(true)) {
-            return curV[0];
-          }
-          return prevV;
-        }, '');
-
         setData((e: Array<Node>) => {
           const result = handleTree(
             [...e],
             inputRef?.current?.value || '',
             searchParams.get('id') || '',
-            typeName,
+            handleTypeName(stateButton),
             uniqueId,
           );
           return result;
@@ -76,6 +71,8 @@ const Tree = () => {
       newParams.delete('id');
       return newParams;
     });
+    // TODO: временно, для разработки
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -88,6 +85,24 @@ const Tree = () => {
   useEffect(() => {
     setCurrentId(searchParams.get('id') || '');
   }, [searchParams]);
+
+  useEffect(() => {
+    setData((e) => {
+      if (e.length > 0 && stateButton.delete) {
+        setExpandedFolders((prevItema) => {
+          prevItema.delete(currentId);
+          return prevItema;
+        });
+        setSearchParams((prev) => {
+          const newParams = new URLSearchParams(prev);
+          newParams.delete('id');
+          return newParams;
+        });
+        return handleDeleteItem(e, currentId || '', setStateButton);
+      }
+      return e;
+    });
+  }, [currentId, stateButton, setData, setStateButton, setSearchParams]);
 
   return (
     <div className={styles.wrapper}>

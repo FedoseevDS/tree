@@ -22,6 +22,7 @@ export default defineConfig({
       hooks: resolve(__dirname, './src/hooks'),
       pages: resolve(__dirname, './src/pages'),
       styles: resolve(__dirname, './src/styles'),
+      types: resolve(__dirname, './src/types'),
     },
     extensions: ['.scss', '.js', '.jsx', '.ts', '.tsx'],
   },

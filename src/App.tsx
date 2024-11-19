@@ -5,7 +5,7 @@ import 'styles/global.scss';
 
 import Main from 'pages/main';
 
-import CreateFolderContext, { initialState } from 'contexts/createFolderContext';
+import CreateButtonContext, { initialState } from 'contexts/createButtonContext';
 
 const router = createBrowserRouter([
   {
@@ -18,9 +18,9 @@ const App = () => {
   const createFolder = useState(initialState);
 
   return (
-    <CreateFolderContext.Provider value={createFolder}>
+    <CreateButtonContext.Provider value={createFolder}>
       <RouterProvider router={router} />
-    </CreateFolderContext.Provider>
+    </CreateButtonContext.Provider>
   );
 };
 
