@@ -1,10 +1,7 @@
-import { createContext } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 import { ButtonType } from 'types';
 
-type CreateButtonContextType = [
-  ButtonType,
-  null | React.Dispatch<React.SetStateAction<ButtonType>>,
-];
+type CreateButtonContextType = [ButtonType, Dispatch<SetStateAction<ButtonType>> | null];
 
 const initialState: ButtonType = { delete: false, edit: false, file: false, folder: false };
 const CreateButtonContext = createContext<CreateButtonContextType>([initialState, null]);

@@ -1,4 +1,4 @@
-import { Node } from 'components/tree/const';
+import { Node } from 'types';
 
 export const handleTree = (
   data: Array<Node>,
@@ -21,18 +21,30 @@ export const handleTree = (
 
   return data.map((item) => {
     if (item.id === paramsId) {
-      return {
-        ...item,
-        children: [
-          ...(item.children || []),
-          {
-            children: [],
-            id: uniqueId(),
-            name,
-            type,
-          },
-        ],
-      };
+      if (type === 'folder' || type === 'file') {
+        return {
+          ...item,
+          children: [
+            ...(item.children || []),
+            {
+              children: [],
+              id: uniqueId(),
+              name,
+              type,
+            },
+          ],
+        };
+      }
+      if (type === 'edit') {
+        const typeField = item.type;
+
+        return {
+          children: [...(item.children || [])],
+          id: paramsId,
+          name,
+          type: typeField,
+        };
+      }
     }
 
     return {

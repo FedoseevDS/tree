@@ -1,6 +1,7 @@
 import { uniqueId } from 'lodash';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { Node } from 'types';
 
 import CreateFolderContext from 'contexts/createButtonContext';
 
@@ -10,7 +11,6 @@ import { handleTree } from 'helpers/handleTree';
 
 import { useLocalStorage } from 'hooks/useLocalStorage';
 
-import { Node } from './const';
 import { Render } from './render';
 
 import styles from './styles.module.scss';
@@ -41,15 +41,17 @@ const Tree = () => {
           return result;
         });
         if (setStateButton) {
-          setStateButton((e) => ({ ...e, file: false, folder: false }));
+          setStateButton((e) => ({ ...e, edit: false, file: false, folder: false }));
         }
       }
     },
     [searchParams, setData, stateButton, setStateButton],
   );
 
+  // TODO: переименовать название функции
   const toggleFolder = useCallback(
     (id: string) => {
+      // TODO: переименовать название функции
       setExpandedFolders((prevExpandedFolders) => {
         const newExpandedFolders = new Map(prevExpandedFolders);
         newExpandedFolders.set(id, !newExpandedFolders.get(id));
@@ -71,7 +73,7 @@ const Tree = () => {
       newParams.delete('id');
       return newParams;
     });
-    // TODO: временно, для разработки
+    // TODO: временно, используется во время разработки
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -87,11 +89,11 @@ const Tree = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    setData((e) => {
+    setData((e: Array<Node>) => {
       if (e.length > 0 && stateButton.delete) {
-        setExpandedFolders((prevItema) => {
-          prevItema.delete(currentId);
-          return prevItema;
+        setExpandedFolders((prevItem) => {
+          prevItem.delete(currentId);
+          return prevItem;
         });
         setSearchParams((prev) => {
           const newParams = new URLSearchParams(prev);
