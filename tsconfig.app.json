@@ -15,7 +15,8 @@
       "helpers/*": ["./src/helpers/*"],
       "hooks/*": ["./src/hooks/*"],
       "pages/*": ["./src/pages/*"],
-      "styles/*": ["./src/styles/*"]
+      "styles/*": ["./src/styles/*"],
+      "types/*": ["./src/types/*"]
     },
 
     /* Bundler mode */

@@ -20,6 +20,21 @@
   }
 }
 
+.file {
+  width: 100%;
+  text-align: start;
+  padding: 4px;
+
+  &:hover {
+    background: $white2;
+    cursor: pointer;
+  }
+  
+  & span {
+    padding-left: 4px;
+  }
+}
+
 .chevron {
   transform: rotate(0);
   transition-duration: .5s;
