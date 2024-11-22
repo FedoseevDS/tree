@@ -31,7 +31,7 @@
 4 Без модалок  
 5 Без излишнего количества библиотек
 
-Стек: TS, react, react-router-dom, vita, vite-plugin-svgr, sass, normalize.css, eslint-config-prettier, eslint-plugin-prettier, eslint-plugin-perfectionist, eslint-plugin-react, prettier, typescript-eslint, @types/node, classnames, lodash, @types/lodash
+Стек: TS, react, react-router-dom, vita, vite-plugin-svgr, sass, normalize.css, eslint-config-prettier, eslint-plugin-prettier, eslint-plugin-perfectionist, eslint-plugin-react, prettier, typescript-eslint, @types/node, classnames, nanoid,
 
 Описание веток:
 
