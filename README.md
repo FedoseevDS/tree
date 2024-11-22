@@ -23,6 +23,10 @@
 8.4 Адаптив блока с деревом по высоте в зависимости от размеров экрана  
 8.5 Адаптив без JavaScript
 
+Дополнительное задание:
+
+1 Добавить уведомление с бесконечным циклом
+
 Требования к коду:
 
 1 Typescript (без any)  
@@ -31,7 +35,7 @@
 4 Без модалок  
 5 Без излишнего количества библиотек
 
-Стек: TS, react, react-router-dom, vita, vite-plugin-svgr, sass, normalize.css, eslint-config-prettier, eslint-plugin-prettier, eslint-plugin-perfectionist, eslint-plugin-react, prettier, typescript-eslint, @types/node, classnames, nanoid,
+Стек: TS, react, react-router-dom, vita, vite-plugin-svgr, sass, normalize.css, eslint-config-prettier, eslint-plugin-prettier, eslint-plugin-perfectionist, eslint-plugin-react, prettier, typescript-eslint, @types/node, classnames, nanoid, ws, express
 
 Описание веток:
 
@@ -47,6 +51,7 @@ tree-9 - добавил возможность добавлять папки в 
 tree-10 - поправил типы и добавил логику на добавление file  
 tree-11 - добавил возможность удалять элементы  
 tree-12 - добавил возможность редактировать элемент  
-tree-13 - добавил хлебные крошки
+tree-13 - добавил хлебные крошки  
+tree-14 - настроил подключение к серверу
 
 website - https://tree2024.netlify.app/
