@@ -6,8 +6,9 @@ export type ButtonType = {
 };
 
 export type Node = {
-  children?: Array<Node>;
+  children?: Array<Node> | undefined;
   id: string;
   name: string;
+  parents: Array<Node>;
   type: string;
 };

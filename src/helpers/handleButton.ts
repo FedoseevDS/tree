@@ -2,20 +2,8 @@ import { Dispatch, SetStateAction } from 'react';
 import { ButtonType } from 'types';
 
 export const handleButton =
-  (type: string, onClick: Dispatch<SetStateAction<ButtonType>> | null) => () => {
-    switch (type) {
-      case 'delete':
-        return onClick && onClick((prev) => ({ ...prev, delete: true }));
-      case 'edit':
-        return onClick && onClick((prev) => ({ ...prev, edit: true }));
-      case 'file':
-        return onClick && onClick((prev) => ({ ...prev, file: true }));
-      case 'folder':
-        return onClick && onClick((prev) => ({ ...prev, folder: true }));
-      default:
-        return;
-    }
-  };
+  (type: keyof ButtonType, onClick: Dispatch<SetStateAction<ButtonType>> | null) => () =>
+    onClick && onClick((prev) => ({ ...prev, [type]: true }));
 
 export const handleTypeName = (stateButton: ButtonType) =>
   Object.entries(stateButton).reduce((prevV, curV) => {

@@ -1,4 +1,4 @@
-import { uniqueId } from 'lodash';
+import { nanoid } from 'nanoid';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Node } from 'types';
@@ -9,7 +9,7 @@ import { handleTypeName } from 'helpers/handleButton';
 import { handleDeleteItem } from 'helpers/handleDeleteItem';
 import { handleTree } from 'helpers/handleTree';
 
-import { useLocalStorage } from 'hooks/useLocalStorage';
+import useLocalStorage from 'hooks/useLocalStorage';
 
 import { Render } from './render';
 
@@ -23,20 +23,20 @@ const Tree = () => {
 
   const [stateButton, setStateButton] = useContext(CreateFolderContext);
 
-  const [data, setData] = useLocalStorage({ defaultValue: [], key: 'data' });
+  const [data, setData] = useLocalStorage('data', []);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleMouseDown = useCallback(
     (event: MouseEvent) => {
       if (inputRef?.current?.value && !inputRef.current.contains(event.target as HTMLDataElement)) {
-        setData((e: Array<Node>) => {
+        setData((e) => {
           const result = handleTree(
             [...e],
             inputRef?.current?.value || '',
             searchParams.get('id') || '',
             handleTypeName(stateButton),
-            uniqueId,
+            nanoid,
           );
           return result;
         });
@@ -45,7 +45,7 @@ const Tree = () => {
         }
       }
     },
-    [searchParams, setData, stateButton, setStateButton],
+    [searchParams, stateButton, setData, setStateButton],
   );
 
   // TODO: переименовать название функции
