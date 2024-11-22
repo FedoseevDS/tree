@@ -18,8 +18,8 @@ const Input = forwardRef<HTMLInputElement, TreeInputType>(
     const currentStateButton = stateButton?.folder || stateButton?.file;
 
     const shouldRenderInput =
-      (data.length !== 0 && !currentId && !itemId && currentStateButton) ||
-      (!data.length && !currentId && !itemId && currentStateButton) ||
+      (data?.length !== 0 && !currentId && !itemId && currentStateButton) ||
+      (!data?.length && !currentId && !itemId && currentStateButton) ||
       (currentId === itemId && currentStateButton);
 
     return shouldRenderInput ? (

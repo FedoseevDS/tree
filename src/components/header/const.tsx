@@ -4,8 +4,8 @@ import IconDelete from 'assets/delete.svg?react';
 import IconEdit from 'assets/edit.svg?react';
 
 export const config = [
-  { img: <IconCreateFolder />, type: 'folder' },
-  { img: <IconCreateFile />, type: 'file' },
-  { img: <IconEdit />, type: 'edit' },
-  { img: <IconDelete />, type: 'delete' },
+  { img: <IconCreateFolder />, type: 'folder' as const },
+  { img: <IconCreateFile />, type: 'file' as const },
+  { img: <IconEdit />, type: 'edit' as const },
+  { img: <IconDelete />, type: 'delete' as const },
 ];

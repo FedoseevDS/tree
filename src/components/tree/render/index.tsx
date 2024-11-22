@@ -33,7 +33,10 @@ export const Render = (
                 ref={inputRef}
               />
             ) : (
-              <button onClick={() => toggleFolder(id)}>
+              <button
+                className={cn({ [styles.itemActive]: id === currentId })}
+                onClick={() => toggleFolder(id)}
+              >
                 <IconChevron className={cn(isExpanded ? styles.chevronActive : styles.chevron)} />
                 <IconFolder />
                 <span>{name}</span>
@@ -63,7 +66,7 @@ export const Render = (
               />
             ) : (
               <button
-                className={styles.file}
+                className={cn(styles.file, { [styles.itemActive]: id === currentId })}
                 onClick={() => toggleFolder(id)}
               >
                 <span>{name}</span>

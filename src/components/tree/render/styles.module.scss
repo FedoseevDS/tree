@@ -20,6 +20,16 @@
   }
 }
 
+.itemActive {
+  box-sizing: border-box;
+  background: #32ADE64D;
+  border: 1px solid $hover1;
+
+  &:hover {
+    background: #32ADE64D !important;
+  }
+}
+
 .file {
   width: 100%;
   text-align: start;
@@ -34,6 +44,8 @@
     padding-left: 4px;
   }
 }
+
+
 
 .chevron {
   transform: rotate(0);

@@ -1,5 +1,7 @@
 import { useContext } from 'react';
 
+import BreadCrumbs from 'components/breadCrumbs';
+
 import CreateFolderContext from 'contexts/createButtonContext';
 
 import { handleButton } from 'helpers/handleButton';
@@ -13,7 +15,9 @@ const Header = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.breadcrumbs}>Корень /</div>
+      <div>
+        <BreadCrumbs />
+      </div>
       <div className={styles.panelControl}>
         {config.map(({ img, type }, index) => (
           <button
