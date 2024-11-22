@@ -1,5 +1,6 @@
 import Header from 'components/header';
 import Tree from 'components/tree';
+import WebSocket from 'components/webSocket';
 
 import styles from './styles.module.scss';
 
@@ -10,6 +11,7 @@ const Main = () => (
       <Tree />
       <div className={styles.content}>Черный квадрат малевича</div>
     </div>
+    <WebSocket />
   </div>
 );
 
