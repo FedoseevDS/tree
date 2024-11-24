@@ -35,7 +35,7 @@
 4 Без модалок  
 5 Без излишнего количества библиотек
 
-Стек: TS, react, react-router-dom, vita, vite-plugin-svgr, sass, normalize.css, eslint-config-prettier, eslint-plugin-prettier, eslint-plugin-perfectionist, eslint-plugin-react, prettier, typescript-eslint, @types/node, classnames, nanoid
+Стек: TS, react, react-router-dom, vita, vite-plugin-svgr, sass, normalize.css, eslint-config-prettier, eslint-plugin-prettier, eslint-plugin-perfectionist, eslint-plugin-react, prettier, typescript-eslint, @types/node, classnames, nanoid, react-toastify
 
 Описание веток:
 
@@ -52,6 +52,7 @@ tree-10 - поправил типы и добавил логику на доба
 tree-11 - добавил возможность удалять элементы  
 tree-12 - добавил возможность редактировать элемент  
 tree-13 - добавил хлебные крошки  
-tree-14 - настроил подключение к локальному серверу
+tree-14 - настроил подключение к локальному серверу  
+tree-15 - добавил уведомление на страницу
 
 website - https://tree2024.netlify.app/

@@ -7,6 +7,8 @@ import Main from 'pages/main';
 
 import CreateButtonContext, { initialState } from 'contexts/createButtonContext';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 const router = createBrowserRouter([
   {
     element: <Main />,

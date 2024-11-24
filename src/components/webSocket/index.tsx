@@ -1,27 +1,40 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 
 import { MessageType } from './type';
 
 const WebSocket = () => {
-  const socket = useMemo(() => new window.WebSocket('ws://localhost:3000'), []);
+  const refSocket = useRef(new window.WebSocket('ws://localhost:3000'));
 
   const [message, setMessage] = useState<MessageType | null>(null);
 
-  useEffect(() => {
-    socket.onmessage = (e) => {
-      setMessage(JSON.parse(e.data));
-    };
-  }, [socket]);
+  const showToastMessage = useCallback((messageText: string) => {
+    toast.success(messageText, {
+      autoClose: 5000,
+      position: 'top-center',
+    });
+  }, []);
 
-  setTimeout(() => {
-    socket.close();
-  }, 30000);
+  useEffect(() => {
+    const socket = refSocket.current;
+
+    socket.onmessage = (e) => {
+      const newMessage = JSON.parse(e.data);
+      setMessage(newMessage);
+      showToastMessage(newMessage.message);
+    };
+  }, [showToastMessage]);
+
+  if (!refSocket.current) {
+    return;
+  }
 
   return message ? (
     <div>
-      <p>Message: {message.message}</p>
-      <p>Time: {new Date(message.time).toLocaleString()}</p>
-      <p>Color: {message.color}</p>
+      <ToastContainer
+        bodyStyle={{ color: message?.color }}
+        progressStyle={{ background: message?.color }}
+      />
     </div>
   ) : null;
 };
