@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Node } from 'types';
 
@@ -17,7 +17,6 @@ import styles from './styles.module.scss';
 
 const Tree = () => {
   const [expandedFolders, setExpandedFolders] = useState<Map<string, boolean>>(new Map());
-  const [currentId, setCurrentId] = useState<string>('');
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -26,6 +25,8 @@ const Tree = () => {
   const [data, setData] = useLocalStorage('data', []);
 
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const currentId = useMemo(() => searchParams.get('id') || '', [searchParams]);
 
   const handleMouseDown = useCallback(
     (event: MouseEvent) => {
@@ -68,25 +69,11 @@ const Tree = () => {
   );
 
   useEffect(() => {
-    setSearchParams((prev) => {
-      const newParams = new URLSearchParams(prev);
-      newParams.delete('id');
-      return newParams;
-    });
-    // TODO: временно, используется во время разработки
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     document.addEventListener('mousedown', handleMouseDown);
     return () => {
       document.removeEventListener('mousedown', handleMouseDown);
     };
   }, [handleMouseDown]);
-
-  useEffect(() => {
-    setCurrentId(searchParams.get('id') || '');
-  }, [searchParams]);
 
   useEffect(() => {
     setData((e: Array<Node>) => {
