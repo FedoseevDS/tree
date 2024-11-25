@@ -4,8 +4,6 @@ import { toast, ToastContainer } from 'react-toastify';
 import { MessageType } from './type';
 
 const WebSocket = () => {
-  return;
-
   const refSocket = useRef(new window.WebSocket('ws://localhost:3000'));
 
   const [message, setMessage] = useState<MessageType | null>(null);
