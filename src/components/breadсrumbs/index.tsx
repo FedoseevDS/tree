@@ -18,7 +18,7 @@ const Breadсrumbs = () => {
   return (
     <div className={styles.wrapper}>
       <Link to={'/'}>Корень /</Link>
-      {currentItem?.parents.map((i) => <span key={i.id + name}> {i.name} / </span>)}
+      {currentItem?.parents?.map((i) => <span key={i.id + i.name}> {i.name} / </span>)}
     </div>
   );
 };
