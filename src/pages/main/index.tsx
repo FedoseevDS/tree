@@ -5,11 +5,11 @@ import WebSocket from 'components/webSocket';
 import styles from './styles.module.scss';
 
 const Main = () => (
-  <div>
+  <div className={styles.wrapper}>
     <Header />
     <div className={styles.body}>
       <Tree />
-      <div className={styles.content}>Черный квадрат малевича</div>
+      <div />
     </div>
     <WebSocket />
   </div>

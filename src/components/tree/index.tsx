@@ -3,7 +3,7 @@ import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'r
 import { useSearchParams } from 'react-router-dom';
 import { Node } from 'types';
 
-import CreateFolderContext from 'contexts/createButtonContext';
+import BooleanButtonsContext from 'contexts/booleanButtonsContext';
 
 import { handleTypeName } from 'helpers/handleButton';
 import { handleDeleteItem } from 'helpers/handleDeleteItem';
@@ -20,7 +20,7 @@ const Tree = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [stateButton, setStateButton] = useContext(CreateFolderContext);
+  const [stateButton, setStateButton] = useContext(BooleanButtonsContext);
 
   const [data, setData] = useLocalStorage('data', []);
 
@@ -93,6 +93,7 @@ const Tree = () => {
     });
   }, [currentId, stateButton, setData, setStateButton, setSearchParams]);
 
+  // TODO: Render - сделать функциональную компоненту
   return (
     <div className={styles.wrapper}>
       {Render(data, expandedFolders, stateButton, inputRef, currentId, toggleFolder)}

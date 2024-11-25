@@ -5,7 +5,6 @@ type Parser<T> = (val: string) => T | undefined;
 type Setter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 
 type Options<T> = Partial<{
-  logger: (error: any) => void;
   parser: Parser<T>;
   serializer: Serializer<T>;
   syncData: boolean;
@@ -15,7 +14,6 @@ function useLocalStorage<T>(key: string, defaultValue: T, options?: Options<T>):
 function useLocalStorage<T>(key: string, defaultValue?: T, options?: Options<T>) {
   const opts = useMemo(() => {
     return {
-      logger: console.log,
       parser: JSON.parse,
       serializer: JSON.stringify,
       syncData: true,
@@ -23,29 +21,26 @@ function useLocalStorage<T>(key: string, defaultValue?: T, options?: Options<T>)
     };
   }, [options]);
 
-  const { logger, parser, serializer, syncData } = opts;
+  const { parser, serializer, syncData } = opts;
 
   const rawValueRef = useRef<null | string>(null);
 
   const [value, setValue] = useState(() => {
-    if (typeof window === 'undefined') return defaultValue;
-
-    try {
-      rawValueRef.current = window.localStorage.getItem(key);
-      const res: T = rawValueRef.current ? parser(rawValueRef.current) : defaultValue;
-      return res;
-    } catch (e) {
-      logger(e);
+    if (typeof window === 'undefined') {
       return defaultValue;
     }
+
+    rawValueRef.current = window.localStorage.getItem(key);
+    const res: T = rawValueRef.current ? parser(rawValueRef.current) : defaultValue;
+    return res;
   });
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     const updateLocalStorage = () => {
-      // Browser ONLY dispatch storage events to other tabs, NOT current tab.
-      // We need to manually dispatch storage event for current tab
       if (value !== undefined) {
         const newValue = serializer(value);
         const oldValue = rawValueRef.current;
@@ -72,11 +67,7 @@ function useLocalStorage<T>(key: string, defaultValue?: T, options?: Options<T>)
       }
     };
 
-    try {
-      updateLocalStorage();
-    } catch (e) {
-      logger(e);
-    }
+    updateLocalStorage();
   }, [value]);
 
   useEffect(() => {
@@ -85,13 +76,9 @@ function useLocalStorage<T>(key: string, defaultValue?: T, options?: Options<T>)
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key !== key || e.storageArea !== window.localStorage) return;
 
-      try {
-        if (e.newValue !== rawValueRef.current) {
-          rawValueRef.current = e.newValue;
-          setValue(e.newValue ? parser(e.newValue) : undefined);
-        }
-      } catch (e) {
-        logger(e);
+      if (e.newValue !== rawValueRef.current) {
+        rawValueRef.current = e.newValue;
+        setValue(e.newValue ? parser(e.newValue) : undefined);
       }
     };
 

@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 
-import BreadCrumbs from 'components/breadCrumbs';
+import BreadCrumbs from 'components/breadсrumbs';
 
-import CreateFolderContext from 'contexts/createButtonContext';
+import BooleanButtonsContext from 'contexts/booleanButtonsContext';
 
 import { handleButton } from 'helpers/handleButton';
 
@@ -11,7 +11,7 @@ import { config } from './const';
 import styles from './styles.module.scss';
 
 const Header = () => {
-  const [, setClickButton] = useContext(CreateFolderContext);
+  const [, setClickButton] = useContext(BooleanButtonsContext);
 
   return (
     <div className={styles.wrapper}>
