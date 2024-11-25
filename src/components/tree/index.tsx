@@ -3,7 +3,7 @@ import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'r
 import { useSearchParams } from 'react-router-dom';
 import { Node } from 'types';
 
-import CreateFolderContext from 'contexts/createButtonContext';
+import BooleanButtonsContext from 'contexts/booleanButtonsContext';
 
 import { handleTypeName } from 'helpers/handleButton';
 import { handleDeleteItem } from 'helpers/handleDeleteItem';
@@ -16,13 +16,13 @@ import { Render } from './render';
 import styles from './styles.module.scss';
 
 const Tree = () => {
-  const [expandedFolders, setExpandedFolders] = useState<Map<string, boolean>>(new Map());
+  const [expandedItems, setExpandedItems] = useState<Map<string, boolean>>(new Map());
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [stateButton, setStateButton] = useContext(CreateFolderContext);
+  const [stateButton, setStateButton] = useContext(BooleanButtonsContext);
 
-  const [data, setData] = useLocalStorage('data', []);
+  const [data, setData] = useLocalStorage<Array<Node>>('data', []);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -31,15 +31,15 @@ const Tree = () => {
   const handleMouseDown = useCallback(
     (event: MouseEvent) => {
       if (inputRef?.current?.value && !inputRef.current.contains(event.target as HTMLDataElement)) {
-        setData((e) => {
+        setData((prevData: Array<Node> | undefined) => {
           const result = handleTree(
-            [...e],
+            prevData ? [...prevData] : [],
             inputRef?.current?.value || '',
             searchParams.get('id') || '',
             handleTypeName(stateButton),
             nanoid,
           );
-          return result;
+          return result as Array<Node> | undefined;
         });
         if (setStateButton) {
           setStateButton((e) => ({ ...e, edit: false, file: false, folder: false }));
@@ -49,14 +49,12 @@ const Tree = () => {
     [searchParams, stateButton, setData, setStateButton],
   );
 
-  // TODO: переименовать название функции
-  const toggleFolder = useCallback(
+  const toggleItem = useCallback(
     (id: string) => {
-      // TODO: переименовать название функции
-      setExpandedFolders((prevExpandedFolders) => {
-        const newExpandedFolders = new Map(prevExpandedFolders);
-        newExpandedFolders.set(id, !newExpandedFolders.get(id));
-        return newExpandedFolders;
+      setExpandedItems((prevExpandedItems) => {
+        const newExpandedItems = new Map(prevExpandedItems);
+        newExpandedItems.set(id, !newExpandedItems.get(id));
+        return newExpandedItems;
       });
 
       setSearchParams((prev) => {
@@ -76,9 +74,9 @@ const Tree = () => {
   }, [handleMouseDown]);
 
   useEffect(() => {
-    setData((e: Array<Node>) => {
-      if (e.length > 0 && stateButton.delete) {
-        setExpandedFolders((prevItem) => {
+    setData((prevData: Array<Node> | undefined) => {
+      if (prevData && prevData.length > 0 && stateButton.delete) {
+        setExpandedItems((prevItem) => {
           prevItem.delete(currentId);
           return prevItem;
         });
@@ -87,15 +85,16 @@ const Tree = () => {
           newParams.delete('id');
           return newParams;
         });
-        return handleDeleteItem(e, currentId || '', setStateButton);
+        return handleDeleteItem(prevData, currentId || '', setStateButton);
       }
-      return e;
+      return prevData || [];
     });
   }, [currentId, stateButton, setData, setStateButton, setSearchParams]);
 
+  // TODO: Render - сделать функциональную компоненту
   return (
     <div className={styles.wrapper}>
-      {Render(data, expandedFolders, stateButton, inputRef, currentId, toggleFolder)}
+      {Render(data, expandedItems, stateButton, inputRef, currentId, toggleItem)}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import 'styles/global.scss';
 
 import Main from 'pages/main';
 
-import CreateButtonContext, { initialState } from 'contexts/createButtonContext';
+import BooleanButtonsContext, { initialState } from 'contexts/booleanButtonsContext';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,9 +20,9 @@ const App = () => {
   const createFolder = useState(initialState);
 
   return (
-    <CreateButtonContext.Provider value={createFolder}>
+    <BooleanButtonsContext.Provider value={createFolder}>
       <RouterProvider router={router} />
-    </CreateButtonContext.Provider>
+    </BooleanButtonsContext.Provider>
   );
 };
 

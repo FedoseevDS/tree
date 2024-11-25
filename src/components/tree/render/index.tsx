@@ -11,14 +11,14 @@ import styles from './styles.module.scss';
 
 export const Render = (
   data: Array<Node>,
-  expandedFolders: Map<string, boolean>,
+  expandedItems: Map<string, boolean>,
   stateButton: ButtonType | null,
   inputRef: RefObject<HTMLInputElement>,
   currentId: string,
-  toggleFolder: (id: string) => void,
+  toggleItem: (id: string) => void,
 ) => {
   const filterData = data?.map(({ children, id, name, type }) => {
-    const isExpanded = expandedFolders?.get(id) || false;
+    const isExpanded = expandedItems?.get(id) || false;
 
     switch (type) {
       case 'folder':
@@ -35,7 +35,7 @@ export const Render = (
             ) : (
               <button
                 className={cn({ [styles.itemActive]: id === currentId })}
-                onClick={() => toggleFolder(id)}
+                onClick={() => toggleItem(id)}
               >
                 <IconChevron className={cn(isExpanded ? styles.chevronActive : styles.chevron)} />
                 <IconFolder />
@@ -51,7 +51,7 @@ export const Render = (
             />
             {isExpanded && children && (
               <div className={cn(styles.childrenFolder, { [styles.expanded]: isExpanded })}>
-                {Render(children, expandedFolders, stateButton, inputRef, currentId, toggleFolder)}
+                {Render(children, expandedItems, stateButton, inputRef, currentId, toggleItem)}
               </div>
             )}
           </div>
@@ -67,7 +67,7 @@ export const Render = (
             ) : (
               <button
                 className={cn(styles.file, { [styles.itemActive]: id === currentId })}
-                onClick={() => toggleFolder(id)}
+                onClick={() => toggleItem(id)}
               >
                 <span>{name}</span>
               </button>
