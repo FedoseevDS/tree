@@ -27,21 +27,21 @@ export const Render = (
             className={styles.folder}
             key={id}
           >
-            {stateButton?.edit && id === currentId ? (
-              <input
-                autoFocus
-                ref={inputRef}
-              />
-            ) : (
-              <button
-                className={cn({ [styles.itemActive]: id === currentId })}
-                onClick={() => toggleItem(id)}
-              >
-                <IconChevron className={cn(isExpanded ? styles.chevronActive : styles.chevron)} />
-                <IconFolder />
+            <button
+              className={cn({ [styles.itemActive]: id === currentId })}
+              onClick={() => toggleItem(id)}
+            >
+              <IconChevron className={cn(isExpanded ? styles.chevronActive : styles.chevron)} />
+              <IconFolder />
+              {stateButton?.edit && id === currentId ? (
+                <input
+                  autoFocus
+                  ref={inputRef}
+                />
+              ) : (
                 <span>{name}</span>
-              </button>
-            )}
+              )}
+            </button>
             <Input
               currentId={currentId}
               data={data}
@@ -59,19 +59,19 @@ export const Render = (
       default:
         return (
           <div key={id}>
-            {stateButton?.edit && id === currentId ? (
-              <input
-                autoFocus
-                ref={inputRef}
-              />
-            ) : (
-              <button
-                className={cn(styles.file, { [styles.itemActive]: id === currentId })}
-                onClick={() => toggleItem(id)}
-              >
+            <button
+              className={cn(styles.file, { [styles.itemActive]: id === currentId })}
+              onClick={() => toggleItem(id)}
+            >
+              {stateButton?.edit && id === currentId ? (
+                <input
+                  autoFocus
+                  ref={inputRef}
+                />
+              ) : (
                 <span>{name}</span>
-              </button>
-            )}
+              )}
+            </button>
           </div>
         );
     }
